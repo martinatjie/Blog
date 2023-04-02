@@ -1,4 +1,4 @@
-﻿namespace Blog.Web.Services
+﻿namespace Blog.Core.Entities
 {
     /// <summary>
     /// an interface that can be used for classes for which comments can be written. This can be a post or another comment.

@@ -1,11 +1,11 @@
-﻿using Blog.Web.Models;
+﻿using Blog.Core.Entities;
 
-namespace Blog.Web.Services
+namespace Blog.Core.Services
 {
     /// <summary>
     /// PostService: This service would handle CRUD operations for posts, as well as validation to ensure that titles are unique.
     /// </summary>
-    public interface IPostService : IBlogLikeItem, IBlogCommentItem
+    public interface IPostService
     {
         void ValidatePost(Post post); //especially title
         void SavePostAsDraft(Post post);

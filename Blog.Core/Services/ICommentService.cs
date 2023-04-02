@@ -1,11 +1,11 @@
-﻿using Blog.Web.Models;
+﻿using Blog.Core.Entities;
 
-namespace Blog.Web.Services
+namespace Blog.Core.Services
 {
     /// <summary>
     /// CommentService: This service would handle CRUD operations for comments, as well as validation to ensure that comments are associated with a valid comment.
     /// </summary>
-    public interface ICommentService : IBlogLikeItem, IBlogCommentItem
+    public interface ICommentService
     {
         void ValidateComment(Comment comment);
         void AddComment(Comment comment);
