@@ -7,13 +7,17 @@ namespace Blog.Core.Services
     /// </summary>
     public interface IPostService
     {
-        void ValidatePost(Post post); //especially title
-        void SavePostAsDraft(Post post);
-        void PublishPost(Post post);
-        void DeletePost(Post post);
-        void GetAllPosts();
+        //void ValidatePost(Post post); //especially title
+        //void SavePostAsDraft(Post post);
+        //void PublishPost(Post post);
+        Task<Post> CreatePostAsync(Post post);
+        //void DeletePost(Post post);
+        //void GetAllPosts();
         //void GetPost(string postTitle);
-        void GetPost(int postId);
-        void UpdatePost(Post post);
+        //void GetPost(int postId);
+
+        Task<Post> GetPostAsync(int postId);
+        Task<List<Post>> GetPostsAsync();
+        //void UpdatePost(Post post);
     }
 }

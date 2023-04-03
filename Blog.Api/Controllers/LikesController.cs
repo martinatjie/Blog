@@ -2,7 +2,7 @@
 
 namespace Blog.Api.Controllers
 {
-    public class LikeController : Controller
+    public class LikesController : Controller
     {
         public IActionResult Index()
         {

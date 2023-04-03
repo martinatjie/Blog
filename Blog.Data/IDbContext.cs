@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Data
 {
-    internal interface IDbContext : IDisposable
+    public interface IDbContext : IDisposable
     {
         DbSet<Post> Posts { get; set; }
         DbSet<Comment> Comments { get; set; }
