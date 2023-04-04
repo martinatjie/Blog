@@ -1,21 +1,17 @@
 ﻿@page "/getposts"
 @using Blog.Core.Entities
+@inject ILogger<GetPosts> logger
 
 <h1>All Posts</h1>
 
-@*<Virtualize Items="posts" Context="post">
+<Virtualize Items="posts" Context="post">
     <div class="card mb-3">
         <div class="card-body">
             <h5 class="card-title">@post.Title</h5>
             <p class="card-text">@post.Content</p>
         </div>
     </div>
-</Virtualize>*@
-
-@foreach(var post in posts)
-{
-    <p>@post.Title</p>
-}
+</Virtualize>
 
 @code {
     private List<Post> posts = new List<Post>();
@@ -25,11 +21,18 @@
 
     protected override async Task OnInitializedAsync()
     {
-        posts.Add(new Post { Id = 1, Title = "sample title", Content = "sample content", UserId = 1 });
-        //var result = await HttpClient.GetFromJsonAsync<List<Post>>("https://localhost:7062/api/Posts");
-        //if (result != default)
-        //{
-        //    posts = result;
-        //}
+        try
+        {
+            //posts.Add(new Post { Id = 1, Title = "sample title", Content = "sample content", UserId = 1 });
+            var result = await HttpClient.GetFromJsonAsync<List<Post>>("api/Posts");
+            if (result != default)
+            {
+                posts = result.ToList();
+            }
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "an error occurred");
+        }
     }
 }

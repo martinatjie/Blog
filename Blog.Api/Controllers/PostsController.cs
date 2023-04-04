@@ -29,8 +29,16 @@ namespace Blog.Api.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> GetPosts()
         {
-            var posts = await _postService.GetPostsAsync();
-            return Ok(posts);
+            try
+            {
+                var posts = await _postService.GetPostsAsync();
+                return Ok(posts);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "an API error occurred");
+                return BadRequest(ex);
+            }
         }
 
         //[HttpGet("{id}")]
