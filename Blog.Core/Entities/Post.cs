@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Blog.Core.Entities
 {
@@ -13,17 +14,19 @@ namespace Blog.Core.Entities
 
         [Required]
         [MaxLength(100)]
+        [JsonPropertyName("title")]
         public string Title { get; set; }
 
+        [JsonPropertyName("content")]
         public string Content { get; set; }
         public int UserId { get; set; }
-        public User User { get; set; }
+        public User? User { get; set; }
 
         [NotMapped]
         public int LikeCount { get; set; }
-        public DateTime LastUpdated { get; set; }
-        public DateTime Created { get; set; }
-        public ICollection<Comment> Comments { get; set; }
-        public ICollection<Like> Likes { get; set; }
+        public DateTime LastUpdated { get; set; } = DateTime.Now;
+        public DateTime Created { get; set; } = DateTime.Now;
+        public ICollection<Comment>? Comments { get; set; }
+        public ICollection<Like>? Likes { get; set; }
     }
 }

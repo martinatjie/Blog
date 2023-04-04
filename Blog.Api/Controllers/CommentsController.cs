@@ -2,7 +2,7 @@
 
 namespace Blog.Api.Controllers
 {
-    public class UserController : Controller
+    public class CommentsController : Controller
     {
         public IActionResult Index()
         {
