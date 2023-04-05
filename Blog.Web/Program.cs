@@ -8,14 +8,6 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-// Add a static files directory
-//builder.Services.AddSingleton(new FileProviderOptions
-//{
-//    FileProvider = new PhysicalFileProvider(
-//        Path.Combine(Directory.GetCurrentDirectory(), "MyStaticFiles")),
-//    RequestPath = "/MyStaticFiles"
-//});
-
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7137") });
 
 builder.Services.AddOidcAuthentication(options =>
@@ -28,7 +20,6 @@ builder.Services.AddOidcAuthentication(options =>
 builder.Services.AddOptions<JsonSerializerOptions>().Configure(options =>
 {
     options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-    //options.Converters.Add(new JsonStringEnumConverter());
     options.Converters.Add(new JsonDateTimeConverter());
 });
 

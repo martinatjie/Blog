@@ -31,7 +31,7 @@
     {
         try
         {
-            ////todo: replace with a more specific call so that api doesn't have to fetch entire list of posts from db
+            //todo: replace with a more specific call so that api doesn't have to fetch entire list of posts from db
             var result = await HttpClient.GetFromJsonAsync<List<Post>>("api/Posts");
             if (result != default)
             {
