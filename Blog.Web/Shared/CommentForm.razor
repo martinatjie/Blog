@@ -1,7 +1,47 @@
-﻿<h3>CommentForm</h3>
-@{
+﻿@{
     //CommentForm component: This component would allow a user to add a new comment to a post. It would have a textarea input field and buttons to submit and close.
 }
+
+@using System.Net.Http
+@using System.Net.Http.Json
+@using System.Text.Json.Serialization
+@using Blog.Core.Entities
+@using System.Text.RegularExpressions;
+@inject NavigationManager NavigationManager
+
+
+<div>
+    <label for="content">Add a comment...</label>
+    <textarea style="height: 100px; width: 100%;" id="content" @bind-Value="@CommentContent" @bind-Value:event="oninput"></textarea><br />
+    <button @onclick="SaveComment">Save</button>
+</div>
+
 @code {
+    public string CommentContent { get; set; }
+
+    [Parameter]
+    public EventCallback<Comment> OnCommentCreated { get; set; }
+
+    [Parameter]
+    public Post ConnectedItem { get; set; }
+
+    [Inject]
+    private HttpClient HttpClient { get; set; }
+
+    private async Task SaveComment()
+    {
+        var comment = new Comment
+            {
+                Content = CommentContent,
+                UserId = 1,
+                PostId = ConnectedItem.Id
+            };
+
+        var response = await HttpClient.PostAsJsonAsync("api/Comments", comment);
+        response.EnsureSuccessStatusCode();
+        await OnCommentCreated.InvokeAsync(comment);
+
+        //todo: add logging
+    }
 
 }

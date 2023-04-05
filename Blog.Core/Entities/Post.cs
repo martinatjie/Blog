@@ -7,7 +7,7 @@ namespace Blog.Core.Entities
     /// <summary>
     /// Post model: This model would represent a blog post. It would have properties for the title, content, author, date, and like count.
     /// </summary>
-    public class Post : IBlogLikeItem, IBlogCommentItem
+    public class Post : IBlogLikeItem//, IBlogCommentItem
     {
         [Key]
         public int Id { get; set; }

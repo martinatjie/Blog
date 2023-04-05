@@ -7,11 +7,13 @@ namespace Blog.Core.Services
     /// </summary>
     public interface ICommentService
     {
-        void ValidateComment(Comment comment);
-        void AddComment(Comment comment);
-        void DeleteComment(Comment comment);
-        void GetAllComments(IBlogCommentItem blogCommentItem);
-        void GetComment(int commentId);
-        void UpdateComment(Comment comment);
+        //void ValidateComment(Comment comment);
+        //void AddComment(Comment comment);
+        //void DeleteComment(Comment comment);
+        //void GetAllComments(IBlogCommentItem blogCommentItem);
+        //void GetComment(int commentId);
+        //void UpdateComment(Comment comment);
+
+        Task<Comment> CreateCommentAsync(Comment comment);
     }
 }
