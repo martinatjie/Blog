@@ -37,7 +37,8 @@ namespace Blog.Infrastructure.Repositories
 
         public async Task<List<Post>> GetPostsAsync()
         {
-            return await _dataContext.Posts.ToListAsync();
+            var posts = await _dataContext.Posts.Include(p => p.Comments).ToListAsync();
+            return posts;
         }
     }
 }

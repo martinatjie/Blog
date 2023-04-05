@@ -1,4 +1,5 @@
-﻿using Blog.Core.Entities;
+﻿using Blog.Core.DTO;
+using Blog.Core.Entities;
 
 namespace Blog.Core.Services
 {
@@ -17,7 +18,7 @@ namespace Blog.Core.Services
         //void GetPost(int postId);
 
         Task<Post> GetPostAsync(int postId);
-        Task<List<Post>> GetPostsAsync();
+        Task<List<PostDto>> GetPostsAsync();
         //void UpdatePost(Post post);
     }
 }

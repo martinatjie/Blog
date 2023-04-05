@@ -17,7 +17,7 @@ namespace Blog.Core.Entities
         [NotMapped]
         public int LikeCount { get; set; }
         public int PostId { get; set; }
-        public Post? Post { get; set; }
+        public Post Post { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
         public ICollection<Like>? Likes { get; set; }
     }

@@ -1,5 +1,5 @@
 ﻿@page "/getposts"
-@using Blog.Core.Entities
+@using Blog.Core.DTO
 @inject ILogger<GetPosts> logger
 @inject NavigationManager NavigationManager
 
@@ -20,7 +20,7 @@
 </Virtualize>
 
 @code {
-    private List<Post> posts = new List<Post>();
+    private List<PostDto> posts = new List<PostDto>();
 
     [Inject]
     private HttpClient HttpClient { get; set; }
@@ -29,7 +29,7 @@
     {
         try
         {
-            var result = await HttpClient.GetFromJsonAsync<List<Post>>("api/Posts");
+            var result = await HttpClient.GetFromJsonAsync<List<PostDto>>("api/Posts");
             if (result != default)
             {
                 posts = result.ToList();
@@ -41,8 +41,8 @@
         }
     }
 
-    private void NavigateToPost(string url)
-    {
-        NavigationManager.NavigateTo($"/{url}");
-    }
+    //private void NavigateToPost(string url)
+    //{
+    //    NavigationManager.NavigateTo($"/{url}");
+    //}
 }

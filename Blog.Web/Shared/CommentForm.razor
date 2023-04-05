@@ -6,6 +6,7 @@
 @using System.Net.Http.Json
 @using System.Text.Json.Serialization
 @using Blog.Core.Entities
+@using Blog.Core.DTO
 @using System.Text.RegularExpressions;
 @inject NavigationManager NavigationManager
 
@@ -23,7 +24,7 @@
     public EventCallback<Comment> OnCommentCreated { get; set; }
 
     [Parameter]
-    public Post ConnectedItem { get; set; }
+    public PostDto ConnectedItem { get; set; }
 
     [Inject]
     private HttpClient HttpClient { get; set; }

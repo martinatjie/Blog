@@ -1,10 +1,22 @@
 ﻿@page "/{PostUrl}"
 
-@using Blog.Core.Entities;
+@using Blog.Core.DTO;
 @inject ILogger<PostReader> logger
+@inject NavigationManager NavigationManager
 
 <h1>@FetchedPost.Title</h1>
 <p>@FetchedPost.Content</p>
+
+<h6>Comments:</h6>
+<Virtualize Items="@FetchedPost.CommentContents" Context="comment">
+    <div class="card mb-3">
+        <div class="card-body">
+            <p class="card-text">@comment</p>
+        </div>
+    </div>
+</Virtualize>
+
+
 <CommentForm ConnectedItem="@FetchedPost"></CommentForm>
 
 @code {
@@ -12,14 +24,23 @@
     [Parameter]
     public string PostUrl { get; set; }
 
-    public Post FetchedPost { get; set; }
+    public PostDto FetchedPost { get; set; }
 
     [Inject]
     private HttpClient HttpClient { get; set; }
 
+    private List<PostDto> posts = new List<PostDto>();
+
     protected override async Task OnInitializedAsync()
     {
-        await FetchPostAsync();
+        try
+        {
+            await FetchPostAsync();
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "an error occurred");
+        }
     }
 
     protected override async Task OnParametersSetAsync()
@@ -32,7 +53,7 @@
         try
         {
             //todo: replace with a more specific call so that api doesn't have to fetch entire list of posts from db
-            var result = await HttpClient.GetFromJsonAsync<List<Post>>("api/Posts");
+            var result = await HttpClient.GetFromJsonAsync<List<PostDto>>("api/Posts");
             if (result != default)
             {
                 var posts = result.ToList();
