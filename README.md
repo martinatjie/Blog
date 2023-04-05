@@ -13,6 +13,6 @@
 ## Tech used
 - Language: C#, HTML, CSS
 - Front end: Blazor WebAssembly
-- Back end: A Web API, .Net 6 libraries, SqLite database
+- Back end: A Web API, .Net 6 libraries, SqLite database with Entity Framework Core
 - Architecture: Clean Architecture inspired
 
