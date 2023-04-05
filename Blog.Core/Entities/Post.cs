@@ -28,5 +28,18 @@ namespace Blog.Core.Entities
         public DateTime Created { get; set; } = DateTime.Now;
         public ICollection<Comment>? Comments { get; set; }
         public ICollection<Like>? Likes { get; set; }
+
+        /// <summary>
+        /// returns an excerpt of the content. If less than 100 characters, it returns the full content.
+        /// </summary>
+        [NotMapped]
+        public string Excerpt { 
+            get 
+            {  
+                return Content[..Math.Min(Content.Length, 100)];
+            } 
+        }
+
+        public string Url { get; set; }
     }
 }

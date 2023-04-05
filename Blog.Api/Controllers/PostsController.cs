@@ -19,11 +19,9 @@ namespace Blog.Api.Controllers
             _postService = postService;
         }
 
-        //[HttpGet(Name = "GetPost")]
-        //public IEnumerable<Post> Get()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        //todo: write a more specific call so that api doesn't have to fetch entire list of posts from db, but rather only a post that matches a URL
+
+
 
         [HttpGet]
         [Produces("application/json")]
@@ -40,19 +38,6 @@ namespace Blog.Api.Controllers
                 return BadRequest(ex);
             }
         }
-
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Post>> GetPost(int id)
-        //{
-        //    var post = await _postService.GetPostAsync(id);
-
-        //    if (post == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return post;
-        //}
 
         [HttpPost]
         public async Task<IActionResult> CreatePost([FromBody] Post post)

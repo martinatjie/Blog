@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Components
+@using System.Net.Http.Json
+@using System.Net.Http
+@using System.Net
+@inject NavigationManager Navigation
+
+<ErrorBoundary OnError="@HandleError">
+    @ChildContent
+</ErrorBoundary>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Inject]
+    private HttpClient HttpClient { get; set; }
+
+    private async void HandleError(Exception error)
+    {
+        Console.WriteLine("An error occurred: " + error.Message);
+        Navigation.NavigateTo("/error");
+    }
+}

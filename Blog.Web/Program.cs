@@ -1,12 +1,8 @@
 using Blog.Web;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using System.ComponentModel;
-using System.Text.Json.Serialization;
 using System.Text.Json;
 using Blog.Web.Extensions;
-using Microsoft.Extensions.Hosting;
-
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -24,13 +20,11 @@ builder.Services.AddOidcAuthentication(options =>
 builder.Services.AddOptions<JsonSerializerOptions>().Configure(options =>
 {
     options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-    //options.Converters.Add(new JsonStringEnumConverter());
     options.Converters.Add(new JsonDateTimeConverter());
 });
 
 // Add logging to the builder
 builder.Logging.ClearProviders();
-//builder.Logging.AddConsole();
 builder.Logging.AddProvider(new BrowserConsoleLoggerProvider());
 
 await builder.Build().RunAsync();

@@ -1,14 +1,20 @@
 ﻿@page "/getposts"
 @using Blog.Core.Entities
 @inject ILogger<GetPosts> logger
+@inject NavigationManager NavigationManager
 
 <h1>All Posts</h1>
+
+@{
+    //PostList component: This component would display a list of all posts, including their titles and like counts. It would have a button or link to view the full post.
+}
 
 <Virtualize Items="posts" Context="post">
     <div class="card mb-3">
         <div class="card-body">
             <h5 class="card-title">@post.Title</h5>
-            <p class="card-text">@post.Content</p>
+            <p class="card-text">@post.Excerpt</p>
+            <a href="/@post.Url">Read more...</a>
         </div>
     </div>
 </Virtualize>
@@ -23,7 +29,6 @@
     {
         try
         {
-            //posts.Add(new Post { Id = 1, Title = "sample title", Content = "sample content", UserId = 1 });
             var result = await HttpClient.GetFromJsonAsync<List<Post>>("api/Posts");
             if (result != default)
             {
@@ -34,5 +39,10 @@
         {
             logger.LogError(ex, "an error occurred");
         }
+    }
+
+    private void NavigateToPost(string url)
+    {
+        NavigationManager.NavigateTo($"/{url}");
     }
 }
