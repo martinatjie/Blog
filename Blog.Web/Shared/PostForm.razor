@@ -2,6 +2,7 @@
 @using System.Net.Http.Json
 @using System.Text.Json.Serialization
 @using Blog.Core.Entities
+@inject NavigationManager NavigationManager
 
 @{
     //PostForm component: This component would allow a user to create a new post. It would have a title input field, a WYSIWYG editor, and buttons to save as draft, publish, and close.
@@ -9,15 +10,15 @@
 
 <div>
     <label for="title">Title:</label>
-    <input id="title" @bind-value="@Title" /><br />
+    <input id="title" @bind-value="@PostTitle" /><br />
     <label for="content">Content:</label>
-    <textarea id="content" @bind-Value="@Content" @bind-Value:event="oninput"></textarea><br />
+    <textarea id="content" @bind-Value="@PostContent" @bind-Value:event="oninput"></textarea><br />
     <button @onclick="SavePost">Save</button>
 </div>
 
 @code {
-    public string Title { get; set; }
-    public string Content { get; set; }
+    public string PostTitle { get; set; }
+    public string PostContent { get; set; }
     [Parameter]
     public EventCallback<Post> OnPostCreated { get; set; }
 
@@ -26,17 +27,30 @@
 
     private async Task SavePost()
     {
+        string postUrl = GenerateUrlFromTitle(PostTitle);
+
         var post = new Post
         {
-            Title = Title,
-            Content = Content,
-            UserId = 1
+            Title = PostTitle,
+            Content = PostContent,
+            UserId = 1,
+            Url = postUrl
         };
         
         var response = await HttpClient.PostAsJsonAsync("api/Posts", post);
         response.EnsureSuccessStatusCode();
         await OnPostCreated.InvokeAsync(post);
 
+        // Navigate to the URL of the newly created post
+        NavigationManager.NavigateTo($"/{postUrl}");
+
         //todo: add logging
     }
+
+    private string GenerateUrlFromTitle(string title)
+    {
+        // Convert the title to lowercase and replace spaces with dashes
+        return title.ToLower().Replace(' ', '-');
+    }
+
 }

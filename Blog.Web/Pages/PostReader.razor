@@ -1,0 +1,49 @@
+﻿@page "/{PostUrl}"
+
+@using Blog.Core.Entities;
+@inject ILogger<PostDetail> logger
+
+<h1>@FetchedPost.Title</h1>
+<p>@FetchedPost.Content</p>
+
+
+@code {
+
+    [Parameter]
+    public string PostUrl { get; set; }
+
+    public Post FetchedPost { get; set; }
+
+    [Inject]
+    private HttpClient HttpClient { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchPostAsync();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await FetchPostAsync();
+    }
+
+    protected async Task FetchPostAsync()
+    {
+        try
+        {
+            var result = await HttpClient.GetFromJsonAsync<List<Post>>("api/Posts");
+            if (result != default)
+            {
+                var posts = result.ToList();
+                FetchedPost = posts.FirstOrDefault(p => p.Url.Equals(PostUrl));
+            }
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "an error occurred");
+        }
+    }
+
+
+
+}
