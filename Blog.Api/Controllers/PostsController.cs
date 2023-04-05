@@ -19,6 +19,8 @@ namespace Blog.Api.Controllers
             _postService = postService;
         }
 
+        //todo: write a more specific call so that api doesn't have to fetch entire list of posts from db, but rather only a post that matches a URL
+
         //[HttpGet(Name = "GetPost")]
         //public IEnumerable<Post> Get()
         //{

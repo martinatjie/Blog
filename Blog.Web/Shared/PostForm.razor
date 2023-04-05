@@ -10,9 +10,9 @@
 
 <div>
     <label for="title">Title:</label>
-    <input id="title" @bind-value="@PostTitle" /><br />
+    <input style="width: 100%;" id="title" @bind-value="@PostTitle" /><br />
     <label for="content">Content:</label>
-    <textarea id="content" @bind-Value="@PostContent" @bind-Value:event="oninput"></textarea><br />
+    <textarea style="height: 500px; width: 100%;" id="content" @bind-Value="@PostContent" @bind-Value:event="oninput"></textarea><br />
     <button @onclick="SavePost">Save</button>
 </div>
 

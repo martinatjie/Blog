@@ -1,16 +1,20 @@
 using Blog.Web;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using System.ComponentModel;
-using System.Text.Json.Serialization;
 using System.Text.Json;
 using Blog.Web.Extensions;
-using Microsoft.Extensions.Hosting;
-
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
+
+// Add a static files directory
+//builder.Services.AddSingleton(new FileProviderOptions
+//{
+//    FileProvider = new PhysicalFileProvider(
+//        Path.Combine(Directory.GetCurrentDirectory(), "MyStaticFiles")),
+//    RequestPath = "/MyStaticFiles"
+//});
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7137") });
 
@@ -30,7 +34,6 @@ builder.Services.AddOptions<JsonSerializerOptions>().Configure(options =>
 
 // Add logging to the builder
 builder.Logging.ClearProviders();
-//builder.Logging.AddConsole();
 builder.Logging.AddProvider(new BrowserConsoleLoggerProvider());
 
 await builder.Build().RunAsync();

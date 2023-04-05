@@ -5,12 +5,15 @@
 
 <h1>All Posts</h1>
 
+@{
+    //PostList component: This component would display a list of all posts, including their titles and like counts. It would have a button to view the full post.
+
+}
 <Virtualize Items="posts" Context="post">
     <div class="card mb-3">
         <div class="card-body">
             <h5 class="card-title">@post.Title</h5>
             <p class="card-text">@post.Excerpt</p>
-            @*<PostDetail PostUrl="@post.Url" OnClick="@(() => NavigateToPost(post.Url))">read more...</PostDetail>*@
             <a href="/@post.Url">Read more...</a>
         </div>
     </div>
