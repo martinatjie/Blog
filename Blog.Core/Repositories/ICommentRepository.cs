@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Blog.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace Blog.Core.Repositories
 {
     public interface ICommentRepository
     {
+        Task<Comment> CreateCommentAsync(Comment comment);
     }
 }

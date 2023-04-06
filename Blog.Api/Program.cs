@@ -1,10 +1,23 @@
+using AutoMapper;
 using Blog.Api.Services;
+using Blog.Core.Entities;
 using Blog.Core.Repositories;
 using Blog.Core.Services;
+using Blog.Core.DTO;
 using Blog.Data;
 using Blog.Infrastructure.Repositories;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Blog.Api.Resolvers;
+
+//var mapperConfig = new MapperConfiguration(cfg =>
+//{
+//    cfg.CreateMap<Post, PostDto>()
+//    .ForMember(dest => dest.CommentContents, opt => opt.MapFrom<CommentResolver>()); // map using a custom resolver
+
+//});
+
+//var mapper = mapperConfig.CreateMapper();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +32,9 @@ builder.Services.AddDbContext<BlogDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("BlogDatabase")));
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+//builder.Services.AddAutoMapper();
 
 // Add logging to the builder
 builder.Host.ConfigureLogging(logging =>

@@ -1,27 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Blog.Core.Entities
+namespace Blog.Core.DTO
 {
     /// <summary>
     /// Comment model: This model would represent a comment on a blog post. It would have properties for the content, author, date, post ID, and like count.
     /// </summary>
-    public class Comment : IBlogLikeItem, IBlogCommentItem
+    public class CommentDto
     {
-        [Key]
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(300)]
+        [StringLength(10, ErrorMessage = "comment is too long.")]
         public string Content { get; set; }
         public int UserId { get; set; }
-        public User? User { get; set; }
 
-        [NotMapped]
         public int LikeCount { get; set; }
         public int PostId { get; set; }
-        public Post Post { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
-        public ICollection<Like>? Likes { get; set; }
+        //public ICollection<Like>? Likes { get; set; }
     }
 }

@@ -1,12 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Blog.Core.DTO;
+using Blog.Core.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Api.Controllers
 {
-    public class CommentsController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class CommentsController : ControllerBase
     {
-        public IActionResult Index()
+        private readonly ILogger<CommentsController> _logger;
+        private readonly ICommentService _commentService;
+
+        public CommentsController(ILogger<CommentsController> logger, ICommentService commentService)
         {
-            return View();
+            _logger = logger;
+            _commentService = commentService;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateComment([FromBody] CommentDto comment)
+        {
+            var createdComment = await _commentService.CreateCommentAsync(comment);
+
+            return Ok(createdComment);
         }
     }
 }
