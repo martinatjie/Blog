@@ -1,4 +1,5 @@
-﻿using Blog.Core.Entities;
+﻿using Blog.Core.DTO;
+using Blog.Core.Entities;
 
 namespace Blog.Core.Services
 {
@@ -14,6 +15,6 @@ namespace Blog.Core.Services
         //void GetComment(int commentId);
         //void UpdateComment(Comment comment);
 
-        Task<Comment> CreateCommentAsync(Comment comment);
+        Task<Comment> CreateCommentAsync(CommentDto comment);
     }
 }

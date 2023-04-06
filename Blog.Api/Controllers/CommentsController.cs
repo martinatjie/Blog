@@ -1,4 +1,4 @@
-﻿using Blog.Core.Entities;
+﻿using Blog.Core.DTO;
 using Blog.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +18,7 @@ namespace Blog.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateComment([FromBody] Comment comment)
+        public async Task<IActionResult> CreateComment([FromBody] CommentDto comment)
         {
             var createdComment = await _commentService.CreateCommentAsync(comment);
 

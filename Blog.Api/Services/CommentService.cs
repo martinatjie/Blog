@@ -1,4 +1,5 @@
-﻿using Blog.Core.Entities;
+﻿using Blog.Core.DTO;
+using Blog.Core.Entities;
 using Blog.Core.Repositories;
 using Blog.Core.Services;
 using System;
@@ -17,9 +18,15 @@ namespace Blog.Api.Services
         {
             _commentRepository = commentRepository;
         }
-        public async Task<Comment> CreateCommentAsync(Comment comment)
+        public async Task<Comment> CreateCommentAsync(CommentDto comment)
         {
-            var result = await _commentRepository.CreateCommentAsync(comment);
+            var mappedComment = new Comment
+            {
+                Content = comment.Content,
+                UserId = comment.UserId,
+                PostId = comment.PostId
+            };
+            var result = await _commentRepository.CreateCommentAsync(mappedComment);
             return result;
         }
     }

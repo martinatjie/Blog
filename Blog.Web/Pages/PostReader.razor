@@ -1,6 +1,7 @@
 ﻿@page "/{PostUrl}"
 
 @using Blog.Core.DTO;
+@using Blog.Core.Entities;
 @inject ILogger<PostReader> logger
 @inject NavigationManager NavigationManager
 
@@ -17,7 +18,7 @@
 </Virtualize>
 
 
-<CommentForm ConnectedItem="@FetchedPost"></CommentForm>
+<CommentForm ConnectedItem="@FetchedPost" OnCommentCreated="(comment) => HandleCommentCreated(comment)"></CommentForm>
 
 @code {
 
@@ -66,6 +67,12 @@
         }
     }
 
-
+    private async Task HandleCommentCreated(CommentDto comment)
+    {
+        //refresh comments for post
+        await FetchPostAsync();
+        //clear comment form
+        //...
+    }
 
 }
